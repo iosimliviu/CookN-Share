@@ -1,0 +1,171 @@
+<template>
+  <q-page class="bg-dark flex flex-center">
+    <div class="container row bg-primary">
+      <div class="description-area col">
+        <h3 class="q-ma-lg">Cook N' Share the taste.</h3>
+      </div>
+      <div class="login-area col">
+        <q-card class="login-card">
+          <div class="column items-center">
+            <h3 class="q-ma-lg">Cook N' Share</h3>
+          </div>
+          <q-tabs v-model="tab">
+            <q-tab label="Login" name="one" />
+            <q-tab label="Register" name="two" />
+          </q-tabs>
+
+          <q-tab-panels v-model="tab" animated>
+            <q-tab-panel name="one">
+              <q-input v-model="login.email" type="email" label="Email" />
+              <q-input
+                v-model="login.password"
+                type="password"
+                label="Password"
+              />
+
+              <q-btn
+                class="roundCorners"
+                color="accent q-mt-sm"
+                label="Log In"
+                size="lg"
+              />
+            </q-tab-panel>
+
+            <q-tab-panel name="two">
+              <q-input v-model="signup.name" type="text" label="Name" />
+              <q-input v-model="signup.email" type="email" label="Email" />
+              <q-input
+                v-model="signup.password"
+                type="password"
+                label="Password"
+              />
+              <div class="q-pa-md "></div>
+              <q-btn
+                class="roundCorners"
+                color="accent"
+                label="Sign Up"
+                size="lg"
+              />
+            </q-tab-panel>
+          </q-tab-panels>
+        </q-card>
+      </div>
+    </div>
+  </q-page>
+</template>
+
+<script>
+import { colors } from "quasar";
+colors.setBrand("light_", "#f8f4f9");
+
+import { LocalStorage } from "quasar";
+export default {
+  name: "LoginPage",
+  data() {
+    return {
+      tab: "one",
+      signup: {
+        password: "",
+        email: "",
+        name: ""
+      },
+      login: {
+        password: "",
+        email: ""
+      }
+    };
+  }
+};
+</script>
+
+<style scoped>
+.roundCorners {
+  border-radius: 25px;
+}
+
+.loginPageButtons {
+  margin: auto;
+}
+
+.uploader {
+  margin: auto;
+  width: 70%;
+}
+
+.logo {
+  width: 80%;
+  align-items: center;
+}
+
+/* .bg-image {
+   background-image: url(../assets/topography.svg); 
+  background-size: contain;
+  background-color: #f0f4ef;
+} */
+
+.container {
+  border-radius: 25px;
+  width: 80%;
+  height: 100%;
+}
+
+.description-area,
+.login-area {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.description-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-card {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 2vh 12vh;
+  background-color: #f8f4f9;
+  border-radius: 25px;
+  height: 80vh;
+}
+
+.card-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.q-field {
+  margin-bottom: 10px;
+}
+.q-field--standout .q-field__control {
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 700px) {
+  .uploader {
+    width: 100%;
+  }
+
+  .description-area {
+    display: none;
+  }
+  .login-card {
+    width: 100%;
+    height: 100%;
+    padding: 2vh;
+  }
+}
+
+@media only screen and (max-width: 1150px) {
+  .login-card {
+    padding: 2vh;
+  }
+}
+</style>
