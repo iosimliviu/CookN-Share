@@ -24,6 +24,7 @@
               />
 
               <q-btn
+                @click="onLogin"
                 class="roundCorners"
                 color="accent q-mt-sm"
                 label="Log In"
@@ -41,6 +42,7 @@
               />
               <div class="q-pa-md "></div>
               <q-btn
+                @click="onSignup"
                 class="roundCorners"
                 color="accent"
                 label="Sign Up"
@@ -55,12 +57,12 @@
 </template>
 
 <script>
+import { LocalStorage } from "quasar";
 import { colors } from "quasar";
 colors.setBrand("light_", "#f8f4f9");
 
-import { LocalStorage } from "quasar";
 export default {
-  name: "LoginPage",
+  name: "AuthPage",
   data() {
     return {
       tab: "one",
@@ -74,6 +76,59 @@ export default {
         email: ""
       }
     };
+  },
+  beforeMount() {
+    if (LocalStorage.getItem("loggedIn")) {
+      this.$router.push("/");
+    }
+  },
+  methods: {
+    onSignup() {
+      console.log("onSignup fired");
+      this.$axios
+        .post(`${process.env.API}/api/auth/register`, this.signup)
+        .then(response => {
+          console.log(response.data);
+          this.$q.notify({
+            color: "green",
+            message: response.data.message,
+            icon: "arrow_forward"
+          });
+        })
+        .catch(error => {
+          this.$q.notify({
+            color: "negative",
+            message: error.response.data.message,
+            icon: "report_problem"
+          });
+        });
+    },
+    onLogin() {
+      console.log("onLogin fired");
+      this.$axios
+        .post(`${process.env.API}/api/auth/login`, {
+          email: this.login.email,
+          password: this.login.password
+        })
+        .then(response => {
+          this.$q.notify({
+            color: "green",
+            message: response.data.message,
+            icon: "arrow_forward"
+          });
+          console.log(response.data);
+          LocalStorage.set("loggedIn", true);
+          LocalStorage.set("userId", response.data.userId);
+          this.$router.push("/");
+        })
+        .catch(error => {
+          this.$q.notify({
+            color: "negative",
+            message: error.response.data.message,
+            icon: "report_problem"
+          });
+        });
+    }
   }
 };
 </script>
