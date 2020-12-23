@@ -60,6 +60,47 @@
           </template>
         </q-input>
       </div>
+      <div class="row justify-center q-ma-md">
+        <q-editor
+          v-model="post.recipe"
+          :toolbar="[
+            [
+              'unordered',
+              'ordered',
+              'indent',
+              {
+                label: $q.lang.editor.align,
+                icon: $q.iconSet.editor.align,
+                fixedLabel: true,
+                list: 'only-icons',
+                options: ['left', 'center', 'right', 'justify']
+              }
+            ],
+            [
+              'bold',
+              'italic',
+              'underline',
+              {
+                label: $q.lang.editor.fontSize,
+                icon: $q.iconSet.editor.fontSize,
+                fixedLabel: true,
+                fixedIcon: true,
+                list: 'no-icons',
+                options: [
+                  'size-1',
+                  'size-2',
+                  'size-3',
+                  'size-4',
+                  'size-5',
+                  'size-6',
+                  'size-7'
+                ]
+              }
+            ],
+            ['token', 'link', 'custom_btn', 'fullscreen', 'viewsource']
+          ]"
+        />
+      </div>
       <div class="row justify-center q-mt-lg">
         <q-btn
           @click="addPost()"
@@ -76,6 +117,7 @@
 
 <script>
 import { uid } from "quasar";
+
 require("md-gum-polyfill");
 
 export default {
@@ -86,6 +128,7 @@ export default {
         id: uid(),
         caption: "",
         location: "",
+        recipe: "",
         photo: null,
         date: Date.now()
       },
@@ -216,11 +259,12 @@ export default {
       formData.append("id", this.post.id);
       formData.append("caption", this.post.caption);
       formData.append("location", this.post.location);
+      formData.append("recipe", this.post.recipe);
       formData.append("date", this.post.date);
       formData.append("file", this.post.photo, this.post.id + ".png");
 
       this.$axios
-        .post(`${process.env.API}/createPost`, formData)
+        .post(`${process.env.API}/api/posts`, formData)
         .then(response => {
           console.log("response: ", response);
           this.$router.push("/");

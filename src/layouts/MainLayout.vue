@@ -6,7 +6,7 @@
           class="large-screen-only q-mr-sm"
           icon="eva-camera-outline"
           size="18px"
-          to="/camera"
+          to="/recipe"
           dense
           flat
           round
@@ -33,7 +33,7 @@
         indicator-color="transparent"
       >
         <q-route-tab to="/" icon="eva-home-outline" />
-        <q-route-tab to="/camera" icon="eva-camera-outline" />
+        <q-route-tab to="/recipe" icon="eva-camera-outline" />
       </q-tabs>
     </q-footer>
 
