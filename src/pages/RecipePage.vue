@@ -127,6 +127,7 @@ export default {
     return {
       post: {
         id: uid(),
+        userId: "",
         caption: "",
         location: "",
         recipe: "",
@@ -258,6 +259,7 @@ export default {
       this.$q.loading.show();
       let formData = new FormData();
       formData.append("id", this.post.id);
+      formData.append("userId", this.post.userId);
       formData.append("caption", this.post.caption);
       formData.append("location", this.post.location);
       formData.append("recipe", this.post.recipe);
@@ -300,6 +302,7 @@ export default {
     }
   },
   beforeMount() {
+    this.post.userId = LocalStorage.getItem("userId");
     if (!LocalStorage.getItem("loggedIn")) {
       this.$router.push("/login");
     }

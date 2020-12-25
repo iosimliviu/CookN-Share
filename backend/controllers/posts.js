@@ -67,6 +67,7 @@ const createPost = (req, res) => {
         .doc(fields.id)
         .set({
           id: fields.id,
+          userId: fields.userId,
           caption: fields.caption,
           location: fields.location,
           recipe: fields.recipe,
