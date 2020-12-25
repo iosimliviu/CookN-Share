@@ -32,6 +32,15 @@
               <div class="text-caption text-grey">
                 {{ post.date | niceDate }}
               </div>
+              <q-btn
+                @click="onPostClick(post)"
+                class="col-4  deleteSection"
+                type="submit"
+                color="primary"
+                size="24px"
+                flat
+                >See Recipe</q-btn
+              >
             </q-card-section>
           </q-card>
         </template>
@@ -86,37 +95,63 @@
         </q-item>
       </div>
     </div>
+    <q-dialog v-model="dialog">
+      <q-card style="border-radius:25px">
+        <q-card-section class="row">
+          <div class="q-pr-lg text-h6">
+            {{ selectedPostInfo.caption }}
+          </div>
+          <q-space />
+          <q-btn v-close-popup dense flat rounded icon="close" />
+        </q-card-section>
+        <q-card-section>
+          <div v-html="selectedPostInfo.recipe"></div>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
+import { LocalStorage } from "quasar";
 import { date } from "quasar";
 
 export default {
   name: "HomePage",
   data() {
     return {
+      dialog: false,
       posts: [],
-      loadingPosts: false
+      loadingPosts: false,
+      selectedPostInfo: {}
     };
   },
   methods: {
+    onPostClick(p) {
+      this.dialog = true;
+      this.selectedPostInfo = this.posts.find(post => post.id === p.id);
+      console.log(this.selectedPostInfo);
+    },
     getPosts() {
-      console.log("get posts fired");
-      //   this.loadingPosts = true;
-      //   this.$axios
-      //     .get(`${process.env.API}/posts`)
-      //     .then(response => {
-      //       this.posts = response.data;
-      //       this.loadingPosts = false;
-      //     })
-      //     .catch(err => {
-      //       this.$q.dialog({
-      //         title: "Error",
-      //         message: "Could not download posts."
-      //       });
-      //       this.loadingPosts = false;
-      //     });
+      console.log("logged in user id: " + LocalStorage.getItem("userId"));
+      this.loadingPosts = true;
+      this.$axios
+        .get(`${process.env.API}/api/posts`)
+        .then(response => {
+          this.posts = response.data;
+          this.loadingPosts = false;
+        })
+        .catch(err => {
+          this.$q.dialog({
+            title: "Error",
+            message: "Could not download posts."
+          });
+          this.loadingPosts = false;
+        });
     }
   },
   filters: {
@@ -126,6 +161,11 @@ export default {
   },
   created() {
     this.getPosts();
+  },
+  beforeMount() {
+    if (!LocalStorage.getItem("loggedIn")) {
+      this.$router.push("/login");
+    }
   }
 };
 </script>
