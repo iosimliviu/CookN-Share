@@ -6,7 +6,7 @@ const getAllUsers = (req, res) => {
         snapshot.forEach((doc) => {
             users.push(doc.data())
         });
-        res.send(users)
+        res.status(200).send(users)
     });
 }
 

@@ -116,6 +116,7 @@
 </template>
 
 <script>
+import { LocalStorage } from "quasar";
 import { uid } from "quasar";
 
 require("md-gum-polyfill");
@@ -296,6 +297,11 @@ export default {
   beforeDestroy() {
     if (this.hasCameraSupport) {
       this.disableCamera();
+    }
+  },
+  beforeMount() {
+    if (!LocalStorage.getItem("loggedIn")) {
+      this.$router.push("/login");
     }
   }
 };
