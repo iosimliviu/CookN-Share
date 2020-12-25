@@ -98,7 +98,23 @@ const getPost = async (req, res) => {
     }
   } catch (e) {
     console.error(e);
-    res.status(500).send({ message: "Something went wrong with sign up" });
+    res.status(500).send({ message: "Get post failed" });
+  }
+};
+
+const deletePost = async (req, res) => {
+  try {
+    let postId = req.params.postId;
+    const post = await firebase.admin
+      .firestore()
+      .collection("posts")
+      .doc(postId)
+      .delete();
+
+    res.status(200).send(`Post was deleted`);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send({ message: "Delete post failed" });
   }
 };
 
@@ -146,5 +162,6 @@ module.exports = {
   getPost,
   getPostsForUser,
   getAllPosts,
-  createPost
+  createPost,
+  deletePost
 };
