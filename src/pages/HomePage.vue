@@ -21,6 +21,24 @@
                 <q-item-label class="text-bold">liviuiosim</q-item-label>
                 <q-item-label caption>{{ post.location }} </q-item-label>
               </q-item-section>
+              <q-space />
+              <q-btn
+                v-if="isUsersPost(post)"
+                class="q-pa-sml"
+                color="negative"
+                dense
+                flat
+                rounded
+                icon="eva-trash-2-outline"
+              />
+              <q-btn
+                v-if="isUsersPost(post)"
+                class="q-pa-sml"
+                dense
+                flat
+                rounded
+                icon="eva-edit-outline"
+              />
             </q-item>
 
             <q-separator />
@@ -28,6 +46,9 @@
             <img :src="post.imageUrl" />
 
             <q-card-section>
+              <q-item-label class="text-bold">{{
+                isUsersPost(post)
+              }}</q-item-label>
               <div>{{ post.caption }}</div>
               <div class="text-caption text-grey">
                 {{ post.date | niceDate }}
@@ -131,6 +152,10 @@ export default {
     };
   },
   methods: {
+    isUsersPost(post) {
+      if (post.userId === LocalStorage.getItem("userId")) return true;
+      else return false;
+    },
     onPostClick(p) {
       this.dialog = true;
       this.selectedPostInfo = this.posts.find(post => post.id === p.id);
