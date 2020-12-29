@@ -103,6 +103,31 @@ const getPost = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  try {
+    let postId = req.params.postId;
+
+    const caption = req.body.caption;
+    const location = req.body.location;
+    const recipe = req.body.recipe;
+
+    await firebase.admin
+      .firestore()
+      .collection("posts")
+      .doc(postId)
+      .update({
+        caption,
+        location,
+        recipe
+      });
+
+    res.status(200).send(`Post updated`);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send({ message: "Update post failed" });
+  }
+};
+
 const deletePost = async (req, res) => {
   try {
     let postId = req.params.postId;
@@ -112,7 +137,7 @@ const deletePost = async (req, res) => {
       .doc(postId)
       .delete();
 
-    res.status(200).send(`Post was deleted`);
+    res.status(200).send(`Post deleted`);
   } catch (e) {
     console.error(e);
     res.status(500).send({ message: "Delete post failed" });
@@ -164,5 +189,6 @@ module.exports = {
   getPostsForUser,
   getAllPosts,
   createPost,
-  deletePost
+  deletePost,
+  updatePost
 };
