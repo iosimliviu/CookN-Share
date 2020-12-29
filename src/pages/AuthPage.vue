@@ -1,10 +1,7 @@
 <template>
   <q-page class="bg-dark flex flex-center">
-    <div class="container row bg-primary">
-      <div class="description-area col">
-        <h3 class="q-ma-lg">Cook N' Share the taste.</h3>
-      </div>
-      <div class="login-area col">
+    <div>
+      <div class="login-area">
         <q-card class="login-card">
           <div class="column items-center">
             <h3 class="q-ma-lg">Cook N' Share</h3>
@@ -25,7 +22,6 @@
 
               <q-btn
                 @click="onLogin"
-                class="roundCorners"
                 color="accent q-mt-sm"
                 label="Log In"
                 size="lg"
@@ -43,7 +39,6 @@
               <div class="q-pa-md "></div>
               <q-btn
                 @click="onSignup"
-                class="roundCorners"
                 color="accent"
                 label="Sign Up"
                 size="lg"
@@ -134,10 +129,6 @@ export default {
 </script>
 
 <style scoped>
-.roundCorners {
-  border-radius: 25px;
-}
-
 .loginPageButtons {
   margin: auto;
 }
@@ -164,16 +155,9 @@ export default {
   height: 100%;
 }
 
-.description-area,
 .login-area {
   flex-basis: 0;
   flex-grow: 1;
-}
-
-.description-area {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .login-area {
@@ -187,7 +171,6 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   padding: 2vh 12vh;
   background-color: #f8f4f9;
-  border-radius: 25px;
   height: 80vh;
 }
 
@@ -208,9 +191,6 @@ export default {
     width: 100%;
   }
 
-  .description-area {
-    display: none;
-  }
   .login-card {
     width: 100%;
     height: 100%;
