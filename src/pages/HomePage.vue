@@ -4,8 +4,9 @@
       <div class="col-12 col-sm-8">
         <div class="q-mb-md">
           <q-btn-dropdown
+            unelevated
+            class="sortButton"
             menu-anchor="bottom end"
-            outline
             label="Sort by"
             dropdown-icon="eva-arrow-down-outline"
           >
@@ -58,7 +59,7 @@
               <q-btn
                 v-if="isUsersPost(post)"
                 @click="onDeleteClick(post)"
-                class="q-pa-sml"
+                class="q-mr-sm"
                 color="negative"
                 dense
                 flat
@@ -68,7 +69,6 @@
               <q-btn
                 v-if="isUsersPost(post)"
                 @click="onUpdateClick(post)"
-                class="q-pa-sml"
                 dense
                 flat
                 rounded
@@ -79,24 +79,28 @@
             <q-separator />
 
             <img :src="post.imageUrl" />
-
-            <q-card-section>
-              <q-item-label class="text-bold">{{
-                isUsersPost(post)
-              }}</q-item-label>
-              <div>{{ post.caption }}</div>
-              <div class="text-caption text-grey">
-                {{ post.date | niceDate }}
+            <q-card-section horizontal>
+              <q-card-section>
+                <div>
+                  {{ post.caption }}
+                </div>
+                <div class="text-caption text-grey">
+                  {{ post.date | niceDate }}
+                </div>
+              </q-card-section>
+              <q-space />
+              <div>
+                <q-btn
+                  @click="onRecipeClick(post)"
+                  class="q-ma-md"
+                  round
+                  unelevated
+                  size="16px"
+                  color="primary"
+                  icon="eva-file-text-outline"
+                  text-color="black"
+                />
               </div>
-              <q-btn
-                @click="onRecipeClick(post)"
-                class="col-4  deleteSection"
-                type="submit"
-                color="primary"
-                size="24px"
-                flat
-                >See Recipe</q-btn
-              >
             </q-card-section>
           </q-card>
         </template>
@@ -157,7 +161,7 @@
       </div>
     </div>
     <q-dialog v-model="dialogRecipe">
-      <q-card style="border-radius:25px">
+      <q-card class="dialogBox">
         <q-card-section class="row">
           <div class="q-pr-lg text-h6">
             {{ selectedPostInfo.caption }}
@@ -170,13 +174,22 @@
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="OK" color="primary" v-close-popup />
+          <q-btn
+            class="q-ma-sm"
+            round
+            unelevated
+            size="16px"
+            text-color="black"
+            color="primary"
+            label="OK"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
 
     <q-dialog v-model="dialogDelete">
-      <q-card style="border-radius:25px">
+      <q-card>
         <q-card-section class="row">
           <div class="q-pr-lg text-h6">
             Delete post
@@ -192,10 +205,13 @@
           <q-btn
             @click="deletePost(selectedPostInfo.id)"
             type="submit"
-            flat
-            label="DELETE"
+            class="q-ma-sm"
+            round
+            unelevated
+            size="16px"
+            text-color="black"
             color="primary"
-            size="lg"
+            label="yes"
             v-close-popup
           />
         </q-card-actions>
@@ -203,7 +219,7 @@
     </q-dialog>
 
     <q-dialog v-model="dialogUpdate">
-      <q-card class="feedbackDialog">
+      <q-card class="dialogBox">
         <q-card-section class="row">
           <div class="q-pr-lg text-h6">
             Edit post
@@ -238,14 +254,20 @@
               />
             </div>
           </q-card-section>
-          <div class="q-pa-lg">
+          <q-card-actions align="right">
             <q-btn
-              color="primary"
-              label="Save"
               @click="updatePost(selectedPostInfo.id)"
               type="submit"
+              class="q-ma-sm"
+              round
+              unelevated
+              size="16px"
+              text-color="black"
+              color="primary"
+              icon="eva-checkmark-circle-2-outline"
+              v-close-popup
             />
-          </div>
+          </q-card-actions>
         </form>
       </q-card>
     </q-dialog>
@@ -409,6 +431,11 @@ export default {
 </script>
 
 <style lang="sass">
+.sortButton
+  border: 0.2em solid black
+.dialogBox
+  min-width: 50%
+
 .card-post
   .q-img
     min-height: 200px

@@ -16,19 +16,19 @@
           CookN'Share
         </q-toolbar-title>
         <q-btn
-          @click="logout()"
-          class="large-screen-only"
-          icon="eva-log-out-outline"
-          size="18px"
-          dense
-          flat
-          round
-        />
-        <q-btn
           class="large-screen-only"
           icon="eva-home-outline"
           size="18px"
           to="/"
+          dense
+          flat
+          round
+        />
+        <q-separator vertical spaced />
+        <q-btn
+          @click="logout()"
+          icon="eva-log-out-outline"
+          size="18px"
           dense
           flat
           round
@@ -38,8 +38,8 @@
     <q-footer class="bg-white small-screen-only" bordered>
       <q-tabs
         class="text-grey-10"
-        active-color="primary"
-        indicator-color="transparent"
+        active-color="black"
+        indicator-color="primary"
       >
         <q-route-tab to="/" icon="eva-home-outline" />
         <q-route-tab to="/recipe" icon="eva-camera-outline" />
