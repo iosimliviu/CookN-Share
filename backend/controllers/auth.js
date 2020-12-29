@@ -13,6 +13,7 @@ const register = async (req, res) => {
       .collection("users")
       .doc(firebase.app.auth().currentUser.uid)
       .set({
+        id: firebase.app.auth().currentUser.uid,
         name: name,
         email: email,
         password: password,
@@ -50,11 +51,12 @@ const login = async (req, res) => {
       if (req.session.id) {
         res.status(202).send({ message: "Already logged it" });
       } else {
-        snapshot.forEach(doc => {
-          console.log(doc.id, "=>", doc.data());
+        await snapshot.forEach(doc => {
           req.session.id = doc.id;
           req.session.token = doc.data().token;
         });
+
+        console.log(req.session.id + " " + req.session.token);
         res.status(200).send({
           userId: req.session.id,
           message: "Successful login"

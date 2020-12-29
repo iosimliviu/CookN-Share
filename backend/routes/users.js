@@ -4,6 +4,6 @@ const authService = require("../services/auth.js");
 
 router.get("/", usersController.getAllUsers);
 router.get("/:userId", usersController.getUser);
-router.delete("/:userId", authService.checkLogin, usersController.deleteUser);
+router.delete("/:userId", usersController.deleteUser);
 
 module.exports = router;

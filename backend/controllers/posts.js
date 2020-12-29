@@ -184,11 +184,32 @@ const getAllPosts = (req, res) => {
     });
 };
 
+const getAllPostsLocationAZ = (req, res) => {
+  let posts = [];
+  firebase.admin
+    .firestore()
+    .collection("posts")
+    .orderBy("location")
+    .orderBy("date", "desc")
+    .get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        posts.push(doc.data());
+      });
+      res.send(posts);
+    })
+    .catch(e => {
+      console.error(e);
+      res.status(500).send({ e, message: "Error" });
+    });
+};
+
 module.exports = {
   getPost,
   getPostsForUser,
   getAllPosts,
   createPost,
   deletePost,
-  updatePost
+  updatePost,
+  getAllPostsLocationAZ
 };

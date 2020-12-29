@@ -18,27 +18,28 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-  res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+  res.header("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
   next();
 });
+
+app.use(bodyParser.json());
 
 app.use(
   session({
     cookieName: "session",
     secret: "notguessablecookiekey",
-    duration: 7200000,
-    activeDuration: 300000,
+    duration: 720000000,
+    activeDuration: 3000000,
     httpOnly: true,
     ephemeral: true
   })
 );
-
-app.use(bodyParser.json());
 
 app.use("/api", router);
 
