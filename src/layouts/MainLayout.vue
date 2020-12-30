@@ -12,8 +12,10 @@
           round
         />
         <q-separator class="large-screen-only" vertical spaced />
-        <q-toolbar-title class="text-grand-hotel text-bold">
-          CookN'Share
+        <q-toolbar-title class="text-supermarcado-one">
+          Cook
+          <p class="titleN">N'</p>
+          Share
         </q-toolbar-title>
         <q-btn
           class="large-screen-only"
@@ -87,6 +89,14 @@ export default {
 </script>
 
 <style lang="sass">
+.titleN
+  margin:0
+  padding:0 0.3em
+  display: inline-block
+  color: black
+  background-color: $primary
+  border-radius:100%
+
 .q-toolbar
   @media (min-width: $breakpoint-sm-min)
     height: 77px

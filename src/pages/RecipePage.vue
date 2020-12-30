@@ -15,8 +15,10 @@
         @click="captureImage"
         :disable="imageCaptured"
         round
-        color="grey-10"
-        icon="eva-camera"
+        unelevated
+        text-color="black"
+        color="primary"
+        icon="eva-camera-outline"
         size="lg"
       />
       <q-file
@@ -107,6 +109,7 @@
           :disable="!post.caption || !post.photo"
           unelevated
           rounded
+          text-color="black"
           color="primary"
           label="Post Image"
         />
@@ -313,5 +316,5 @@ export default {
 <style lang="sass">
 .camera-frame
   border: 2px solid $grey-10
-  border-radius: 10px
+  border-radius: 5px
 </style>

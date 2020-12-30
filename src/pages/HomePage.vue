@@ -432,9 +432,11 @@ export default {
 
 <style lang="sass">
 .sortButton
-  border: 0.2em solid black
+  border: 2px solid $grey-10
+  border-radius: 5px
+
 .dialogBox
-  min-width: 50%
+  min-width: 40%
 
 .card-post
   .q-img
